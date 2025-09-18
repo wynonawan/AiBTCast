@@ -52,8 +52,136 @@ pip install pandas numpy matplotlib yfinance scikit-learn lightgbm statsmodels l
 
 ### 1. Next-hour bitcoin price
 
+This model implements LightGBM machine learning method effective in crypto data training in the quantitative field. The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MachBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
+
+Note that these are all live plots so it is not reproducable.
+
+#### Bitcoin features for LightGBM Model:
+
+##### 1. Price Changes
+- `P_1h`: 1-hour return (% change)
+- `P_7h`: 7-hour return (% change)
+
+##### 2. Volume Changes
+- `V_1h`: 1-hour volume change (% change)
+- `V_7h`: 7-hour volume change (% change)
+
+##### 3. Price-Volume Interaction
+- `PV_1h`: P_1h × V_1h
+- `PV_7h`: P_7h × V_7h
+
+##### 4. Volatility & Liquidity
+- `vol`: rolling standard deviation of 1-hour returns (7-period window)
+- `ratio`: Volume / Close (liquidity proxy)
+
+##### 5. Lagged Price
+- `Close_lag1`: previous period’s close price
+
+##### 6. Factor-Based Features (added later from Fama-MachBeth)
+- `CFO` only: Cumulative Forecast Oscillator (deviation from linear trend)
+(Other factors not included due to low significance)
+
+These features are combined and cleaned before being fed into LightGBM for short-term Bitcoin price forecasting.
+
+#### Bitcoin Price Visualization Actual Vs. Predicted
+
+The visualization for bitcoin price prediction over the past month is shown below, where last point shows the next hour price.
+
+Average price range: ~$112,400 ; 
+
+RMSE: 424.12 → error ~0.37% ; 
+
+MAE: 282.39 → error ~0.25%
+
+<img width="3561" height="1739" alt="bitcoin_prediction" src="https://github.com/user-attachments/assets/df5d1498-d890-428f-b7de-a18df0151735" />
 
 
+
+<img width="753" height="489" alt="Screenshot 2025-09-18 at 16 05 52" src="https://github.com/user-attachments/assets/4a2d8ceb-8e50-4f6e-aaf0-b42eb307a0cf" />
+
+
+
+### 2. Next 4 hour bitcoin price
+
+Similary, with the same enginerring features, the model also trains for next 4 hour prediction. The visualization for bitcoin price prediction over the past month is shown below with 4 hour interval, where last point shows the next 4 hour price. 
+
+Comparing with next-hour prediction, a 4-hour prediction is less noisy therefore has better visual effects. However, the model behaves slightly worse due to higher RMSE and MAE.
+
+Average price range: ~$112,400 ; 
+
+RMSE: 555.36 → error ~0.49% ; 
+
+MAE: 415.88 → error ~0.37%
+
+<img width="3560" height="1754" alt="bitcoin_prediction_4h" src="https://github.com/user-attachments/assets/b2bbb6c0-fb11-4ffc-a13d-5605abbfe270" />
+
+### 3. TC, PWMA, and CFO factors
+
+#### TC (Trend Confidence)
+**Definition:**  
+TC measures how well past price data can be explained by a linear trend over a rolling window. A higher TC indicates stronger trend predictability.
+
+**Formula:**
+
+
+$P_t$ = $\alpha$ + $\beta$ t + $\epsilon_t$
+
+$$
+TC = R^2 = 1 - \frac{\sum_{i=1}^{n} (\hat{P}_i - P_i)^2}{\sum_{i=1}^{n} (P_i - \bar{P})^2}
+$$
+
+Where:  
+- $P_i$ = actual price  
+- $\hat{P}_i$ = predicted price from linear regression  
+- $\bar{P}$ = mean price in the window  
+
+---
+
+#### PWMA (Pascal-Weighted Moving Average)
+
+**Definition:**  
+PWMA is a weighted moving average where weights are derived from **Pascal’s triangle**. It smooths price series while preserving trend information.
+
+**Formula:**
+
+$$
+w_k = \frac{\binom{n-1}{k}}{\sum_{j=0}^{n-1} \binom{n-1}{j}}, \quad k = 0,1,...,n-1
+$$
+
+$$
+PWMA_t = \sum_{k=0}^{n-1} w_k \cdot P_{t-n+1+k}
+$$
+
+Where:  
+- $P_{t-n+1+k}$ = price at position $k$ in the window  
+- $\binom{n-1}{k}$ = binomial coefficient from Pascal's triangle  
+
+---
+
+#### CFO (Cumulative Forecast Oscillator)
+
+**Definition:**  
+CFO measures the deviation of the current price from a short-term linear prediction. It is scaled as a percentage of the current price and acts as a momentum signal.
+
+**Formula:**
+
+$$
+\hat{P}_t = \text{LinearRegression}(P_{t-n+1:t})
+$$
+
+$$
+CFO_t = 100 \times \frac{P_t - \hat{P}_t}{P_t}
+$$
+
+Where:  
+- Positive CFO → price above predicted trend  
+- Negative CFO → price below predicted trend  
+
+---
+
+### 4. Fama-MachBeth Estimation Across Cryptos
+
+<img width="681" height="445" alt="Screenshot 2025-09-18 at 16 12 28" src="https://github.com/user-attachments/assets/24f2de40-981e-454e-9c41-9bf573f8bef9" />
 
 
  paper: [Cryptocurrency price forecasting](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). 
