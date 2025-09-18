@@ -52,7 +52,7 @@ pip install pandas numpy matplotlib yfinance scikit-learn lightgbm statsmodels l
 
 ### 1. Next-hour bitcoin price
 
-This model implements LightGBM machine learning method effective in crypto data training in the quantitative field. The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MachBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
+This model implements LightGBM machine learning method effective in crypto data training in the quantitative field [see reference paper](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MachBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
 
 Note that these are all live plots so it is not reproducable.
 
@@ -177,7 +177,12 @@ Where:
 - Positive CFO → price above predicted trend  
 - Negative CFO → price below predicted trend  
 
----
+Below shows the factor values for just bitcoin:
+
+
+<img width="811" height="308" alt="Screenshot 2025-09-18 at 17 03 50" src="https://github.com/user-attachments/assets/32d8cb92-45ae-4766-9508-1f82e616f20a" />
+
+
 
 ### 4. Fama-MachBeth Estimation Across Cryptos
 
