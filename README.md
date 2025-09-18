@@ -9,7 +9,7 @@ This project is built for personal interest
   - [Next-hour bitcoin price](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#1-next-hour-bitcoin-price)
   - [Next-4-hour bitcoin price](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#2-next-4-hour-bitcoin-price)
   - [TC, PWMA, CFO factors](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#3-tc-pwma-and-cfo-factors)
-  - [FamaMacBeth Estimation across cryptos]()
+  - [FamaMacBeth Estimation across cryptos](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#4-fama-machbeth-estimation-across-cryptos)
 
 ## Installation Steps
 ### 1. Get this repository by running:
