@@ -6,8 +6,8 @@ This project is built for personal interest
 ## Contents
 - [Install](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#installation-steps)
 - Bitcoin Forcast:
-  - [Next-hour bitcoin price]()
-  - [Next-4hour bitcoin price]()
+  - [Next-hour bitcoin price](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#1-next-hour-bitcoin-price)
+  - [Next-4-hour bitcoin price]()
   - [TC, PWMA, CFO factors]()
   - [FamaMacBeth Estimation across cryptos]()
 
