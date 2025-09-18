@@ -7,7 +7,7 @@ This project is built for personal interest
 - [Install](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#installation-steps)
 - Bitcoin Forcast:
   - [Next-hour bitcoin price](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#1-next-hour-bitcoin-price)
-  - [Next-4-hour bitcoin price]()
+  - [Next-4-hour bitcoin price](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#2-next-4-hour-bitcoin-price)
   - [TC, PWMA, CFO factors]()
   - [FamaMacBeth Estimation across cryptos]()
 
@@ -100,6 +100,7 @@ MAE: 282.39 → error ~0.25%
 
 <img width="3561" height="1739" alt="bitcoin_prediction" src="https://github.com/user-attachments/assets/df5d1498-d890-428f-b7de-a18df0151735" />
 
+Below shows the real bitcoin price at the next hour online.
 
 
 <img width="753" height="489" alt="Screenshot 2025-09-18 at 16 05 52" src="https://github.com/user-attachments/assets/4a2d8ceb-8e50-4f6e-aaf0-b42eb307a0cf" />
