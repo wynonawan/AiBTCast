@@ -54,6 +54,11 @@ pip install pandas numpy matplotlib yfinance scikit-learn lightgbm statsmodels l
 
 This model implements LightGBM machine learning method effective in crypto data training in the quantitative field [see reference paper](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MachBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
 
+Run command:
+```
+python bitcoin_forecast.py
+```
+
 Note that these are all live plots so it is not reproducable.
 
 #### Bitcoin features for LightGBM Model:
