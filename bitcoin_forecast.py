@@ -132,25 +132,6 @@ print(f"Validation MAE: {mae_val:.2f}, RMSE: {rmse_val:.2f}")
 print("actual price", Y_val.values[0:10])
 print("predicted price", prediction_val[0:10])
 
-#plt.figure(figsize=(12,6))
-##plt.plot(Y_val.values, label="Actual Price")
-##plt.plot(prediction_val, label="Predicted Price")
-#
-#plt.plot(Y_val.index, Y_val.values, label="Actual Price")
-#plt.plot(Y_val.index, prediction_val, label="Predicted Price")
-#
-#plt.legend()
-#plt.title("Bitcoin Price Prediction: Actual vs Predicted")
-#plt.xlabel("Time")
-#plt.ylabel("Price (USD)")
-#
-#plt.xticks(rotation=45)
-#metrics_text = f"RMSE: {rmse_val:.2f}\nMAE: {mae_val:.2f}\nAccuracy (±1%): {accuracy:.2f}%"
-#plt.text(Y_val.index[0], max(Y_val.values)*1.01, metrics_text, fontsize=10, verticalalignment='top')
-#
-#plt.tight_layout()
-
-
 pred_full = model.predict(X_val, num_iteration=model.best_iteration)
 
 # select last month for plotting
@@ -182,11 +163,7 @@ plt.text(Y_val.index[-1], max(Y_val.values)*1.01, metrics_text, fontsize=10, ver
 plt.tight_layout()
 
 
-
 plt.savefig("bitcoin_prediction.png", dpi=300, bbox_inches='tight')
-
-#next_pred = model.predict(X.iloc[-1:], num_iteration=model.best_iteration)
-#print("Predicted next hour BTC price:", next_pred[0])
 
 # get TC value
 def TC_Rsquared(d, n):
