@@ -181,8 +181,29 @@ Where:
 
 ### 4. Fama-MachBeth Estimation Across Cryptos
 
+Two-step regression method to estimate factor risk premia in panel data.
+
+**Cross-sectional regression per time period:**
+
+$$
+     R_{i,t} = \gamma_{0,t} + \gamma_{1,t} \beta_{i,1} + \dots + \gamma_{K,t} \beta_{i,K} + \epsilon_{i,t}
+$$
+
+**Time-series averaging of factor premia:**
+
+$$
+     \hat{\gamma}_k = \frac{1}{T} \sum_{t=1}^T \gamma_{k,t}
+$$
+
+**Purpose:** Provides robust estimates of factor effects on asset returns while accounting for cross-sectional dependence.
+
+
+With the definitions of the above factors, the Fama-MachBeth Estimation is run across these assests: Bitcoin, Ethereum, Solana, Binance Coin, Cardano, Ripple, Dogecoin, Polkadot, Avalanche, Polygon, Litecoin, Chainlink, Cosmos, NEAR Protocol, Fantom, Algorand, TRON, Stellar, Shiba Inu, Internet Computer
+
 <img width="681" height="445" alt="Screenshot 2025-09-18 at 16 12 28" src="https://github.com/user-attachments/assets/24f2de40-981e-454e-9c41-9bf573f8bef9" />
 
+The results show that the model is 49.85% effective in describing the crypto trends from R-squared. Parameter estimates for all factors show that TC is the most significant with P-value = 0; PWMA is slightly correlated with P-value = 0.359.
 
- paper: [Cryptocurrency price forecasting](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). 
+
+
 
