@@ -47,6 +47,31 @@ def get_PWMA(d, n=10):
     d['PWMA'] = prices.rolling(window=n).apply(apply_PWMA, raw=True)
     return d
 
+# get TC value
+def TC_Rsquared(d, n):
+    btc_values = d['Close'].values
+    N = len(btc_values)
+    tc = np.full(N, np.nan)
+
+    for t in range(12*n, N-n):
+        Y = btc_values[t-12*n:t-n]
+        if len(tc) >= 4*n:
+            X = np.arange(len(Y)).reshape(-1, 1)
+            model = LinearRegression().fit(X, Y)
+            R_2 = model.score(X,Y)
+            tc[t] = R_2
+    d['TC'] = tc
+    return d
+
+# obtain all factors for each asset
+def add_factors(d, n):
+    d_asset = d.copy()
+    d_aseet = TC_Rsquared(d_asset, n)
+    d_asset = get_PWMA(d_asset, n=10)
+    d_asset = get_CFO(d_asset, period=10)
+    d_asset['Return'] = d_asset['Close'].pct_change()
+    return d_asset
+
 
 # set up engineering data for training 
 
@@ -126,6 +151,7 @@ accuracy = np.mean(np.abs((prediction_val - Y_val.values)/Y_val.values) < tolera
 #relative_error = np.mean(np.abs(prediction_val - Y_val.values) / Y_val.values) * 100
 relative_error = mae_val / np.mean(Y_val.values) * 100
 
+print("error", np.mean(Y_val.values))
 print(f"Training MAE: {mae_train:.2f}, RMSE: {rmse_train:.2f}")
 print(f"Validation MAE: {mae_val:.2f}, RMSE: {rmse_val:.2f}")
 
@@ -155,48 +181,14 @@ plt.title("Bitcoin Price Prediction: Last Month")
 plt.legend()
 plt.xticks(rotation=45)
 
-#metrics_text = f"RMSE: {rmse_val:.2f}\nMAE: {mae_val:.2f}\nAccuracy (±1%): {accuracy:.2f}%"
 metrics_text = f"RMSE: {rmse_val:.2f}\nMAE: {mae_val:.2f}\nMean Rel Error: {relative_error:.2f}%"
 
-#plt.text(Y_val.index[0], max(Y_val.values)*1.01, metrics_text, fontsize=10, verticalalignment='top')
 plt.text(Y_val.index[-1], max(Y_val.values)*1.01, metrics_text, fontsize=10, verticalalignment='top')
 plt.tight_layout()
 
 
 plt.savefig("bitcoin_prediction.png", dpi=300, bbox_inches='tight')
 
-# get TC value
-def TC_Rsquared(d, n):
-    btc_values = d['Close'].values
-    N = len(btc_values)
-    tc = np.full(N, np.nan)
-
-    for t in range(12*n, N-n):
-        Y = btc_values[t-12*n:t-n]
-        if len(tc) >= 4*n:
-            X = np.arange(len(Y)).reshape(-1, 1)
-            model = LinearRegression().fit(X, Y)
-            R_2 = model.score(X,Y)
-            tc[t] = R_2
-    d['TC'] = tc
-    return d
-
-
-def add_factors(d, n):
-    d_asset = d.copy()
-    d_aseet = TC_Rsquared(d_asset, n)
-    d_asset = get_PWMA(d_asset, n=10)
-    d_asset = get_CFO(d_asset, period=10)
-    d_asset['Return'] = d_asset['Close'].pct_change()
-    return d_asset
-
-## add factors to dataset
-#n = 3
-#d = TC_Rsquared(d, n)
-#d = get_PWMA(d)
-#d = get_CFO(d)
-
-#assets_names = ["BTC-USD","ETH-USD","SOL-USD","BNB-USD"]
 assets_names = [
     "BTC-USD","ETH-USD","SOL-USD","BNB-USD","ADA-USD","XRP-USD","DOGE-USD","DOT-USD",
     "AVAX-USD","MATIC-USD","LTC-USD","LINK-USD","ATOM-USD","NEAR-USD","FTM-USD",
@@ -217,13 +209,33 @@ assets = assets.set_index(["Ticker","Datetime"]).sort_index()
 
 assets_factors = assets.groupby(level="Ticker", group_keys=False).apply(add_factors,n=3)
 
+# Check just the btc factors
+btc_factors = assets_factors.loc["BTC-USD", ["Return", "TC", "PWMA", "CFO"]]
+btc_factors = btc_factors.dropna()
+print("Bitcoin factor values (first 10 rows):")
+print(btc_factors.head(10))
 
+#btc_factors.to_csv("bitcoin_factors.csv")
+
+with open("bitcoin_factors.txt", "w") as f:
+    f.write("Datetime\tReturn\tTC\tPWMA\tCFO\n")
+    for idx, row in btc_factors.iterrows():
+        f.write(f"{idx}\t{row['Return']:.6f}\t{row['TC']:.6f}\t{row['PWMA']:.6f}\t{row['CFO']:.6f}\n")
+
+print("Bitcoin factor values saved to bitcoin_factors.txt")
+
+
+# Perform Fama-MachBeth Estimation
 valid_assets = assets_factors[['Return','TC','PWMA','CFO']].dropna()
 Y = valid_assets['Return']
 X = sm.add_constant(valid_assets[['TC','PWMA','CFO']])
 
 FamaM = FamaMacBeth(Y, X)
 fm_result = FamaM.fit(cov_type="kernel")
+
+with open('famaMacBeth_summary.txt', 'w') as f:
+    f.write("Fama–MacBeth regression result:\n")
+    f.write(str(fm_result.summary))
 
 print("Fama–MacBeth regression result:")
 print(fm_result.summary)

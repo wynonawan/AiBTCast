@@ -1,0 +1,29 @@
+Fama–MacBeth regression result:
+                            FamaMacBeth Estimation Summary                           
+=====================================================================================
+Dep. Variable:                      Return   R-squared:                        0.4985
+Estimator:                     FamaMacBeth   R-squared (Between):             -6.3756
+No. Observations:                     6114   R-squared (Within):               0.5106
+Date:                     Thu, Sep 18 2025   R-squared (Overall):              0.4985
+Time:                             17:02:01   Log-likelihood                 1.166e+04
+Cov. Estimator:    Fama-MacBeth Kernel Cov                                           
+                                             F-statistic:                      2024.8
+Entities:                               20   P-value                           0.0000
+Avg Obs:                            305.70   Distribution:                  F(3,6110)
+Min Obs:                            79.000                                           
+Max Obs:                            327.00   F-statistic (robust):             420.22
+                                             P-value                           0.0000
+Time periods:                          327   Distribution:                  F(3,6110)
+Avg Obs:                            18.697                                           
+Min Obs:                            18.000                                           
+Max Obs:                            20.000                                           
+                                                                                     
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -0.0045     0.0026    -1.7464     0.0808     -0.0095      0.0005
+TC             0.0033     0.0032     1.0227     0.3065     -0.0030      0.0095
+PWMA        2.192e-08  1.045e-08     2.0988     0.0359   1.446e-09    4.24e-08
+CFO            0.0082     0.0003     32.650     0.0000      0.0077      0.0087
+==============================================================================
