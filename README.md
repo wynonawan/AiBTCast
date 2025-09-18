@@ -1,5 +1,5 @@
 # AiCryptoCast
-AiBTCast is a Python project that predicts the real-time next-hour Bitcoin (BTC-USD) price using LightGBM and various engineered features: price, volume, and CFO (Cumulative Forecast Oscillator). Such engineering also performs well for next-4-hour prediction, which will be used in comparison in this repo.
+AiCryptoCast is a Python project that predicts the real-time next-hour Bitcoin (BTC-USD) price using LightGBM and various engineered features: price, volume, and CFO (Cumulative Forecast Oscillator). Such engineering also performs well for next-4-hour prediction, which will be used in comparison in this repo.
 In addition, this model also includes factor extraction for TC (Trend Confidence), PWMA (Predictive Weighted Moving Average), incorporating the FamaMacBeth estimation for all factors across multiple crypto assets. THe model reaches decent accuracy with ~0.25% overall error calculated from MAE, and ~0.34% from RMSE; it successfully captures the future movement trend.
 This project is built for personal interest
 
