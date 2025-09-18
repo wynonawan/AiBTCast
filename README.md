@@ -4,7 +4,7 @@ In addition, this model also includes factor extraction for TC (Trend Confidence
 This project is built for personal interest
 
 ## Contents
-- [Install]()
+- [Install](https://github.com/wynonawan/AiCryptoCast/blob/main/README.md#installation-steps)
 - Bitcoin Forcast:
   - [Next-hour bitcoin price]()
   - [Next-4hour bitcoin price]()
