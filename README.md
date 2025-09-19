@@ -121,6 +121,11 @@ MAE: 415.88 → error ~0.37%
 
 <img width="3560" height="1754" alt="bitcoin_prediction_4h" src="https://github.com/user-attachments/assets/b2bbb6c0-fb11-4ffc-a13d-5605abbfe270" />
 
+Below shows the real bitcoin price at the next 4 hour online.
+
+<img width="683" height="424" alt="8pm-prediction" src="https://github.com/user-attachments/assets/c6958951-0477-401a-a27c-3e4b43f9d4e9" />
+
+
 ### 3. TC, PWMA, and CFO factors
 
 #### TC (Trend Confidence)
