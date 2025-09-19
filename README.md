@@ -52,7 +52,7 @@ pip install pandas numpy matplotlib yfinance scikit-learn lightgbm statsmodels l
 
 ### 1. Next-hour bitcoin price
 
-This model implements LightGBM machine learning method effective in crypto data training in the quantitative field [see reference paper](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MachBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
+This model implements LightGBM machine learning method effective in crypto data training in the quantitative field [see reference paper](https://www.sciencedirect.com/science/article/pii/S1057521923005719#:~:text=.%2C%202022). The initial training only included bitcoin features regarding price, volumn and volatility. The backtesting using Fama-MacBeth estimation has indicated the significance of CFO factor in describing the current bitcoin trend, hence an extra engineering feature -- CFO -- was as added to further improve the ML model. 
 
 Run command:
 ```
@@ -82,7 +82,7 @@ Note that these are all live plots so it is not reproducable.
 ##### 5. Lagged Price
 - `Close_lag1`: previous period’s close price
 
-##### 6. Factor-Based Features (added later from Fama-MachBeth)
+##### 6. Factor-Based Features (added later from Fama-MacBeth)
 - `CFO` only: Cumulative Forecast Oscillator (deviation from linear trend)
 (Other factors not included due to low significance)
 
@@ -195,7 +195,7 @@ Below shows the factor values for just bitcoin:
 
 
 
-### 4. Fama-MachBeth Estimation Across Cryptos
+### 4. Fama-MacBeth Estimation Across Cryptos
 
 Two-step regression method to estimate factor risk premia in panel data.
 
@@ -214,7 +214,7 @@ $$
 **Purpose:** Provides robust estimates of factor effects on asset returns while accounting for cross-sectional dependence.
 
 
-With the definitions of the above factors, the Fama-MachBeth Estimation is run across these assests: Bitcoin, Ethereum, Solana, Binance Coin, Cardano, Ripple, Dogecoin, Polkadot, Avalanche, Polygon, Litecoin, Chainlink, Cosmos, NEAR Protocol, Fantom, Algorand, TRON, Stellar, Shiba Inu, Internet Computer
+With the definitions of the above factors, the Fama-MacBeth Estimation is run across these assests: Bitcoin, Ethereum, Solana, Binance Coin, Cardano, Ripple, Dogecoin, Polkadot, Avalanche, Polygon, Litecoin, Chainlink, Cosmos, NEAR Protocol, Fantom, Algorand, TRON, Stellar, Shiba Inu, Internet Computer
 
 <img width="681" height="445" alt="Screenshot 2025-09-18 at 16 12 28" src="https://github.com/user-attachments/assets/24f2de40-981e-454e-9c41-9bf573f8bef9" />
 
